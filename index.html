@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>D'Moda — Tienda de Ropa</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <!-- ══════════════════════ NAVBAR ══════════════════════ -->
+    <header id="topHeader">
+      <nav class="navbar">
+        <div class="logo">D'<span>Moda</span></div>
+
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#temporadas">Temporadas</a></li>
+          <li><a href="#catalogo">Catálogo</a></li>
+          <li><a href="#ofertas">Ofertas</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <button class="btn-cart" id="cartBtn">
+            🛍️ Carrito <span class="cart-badge" id="cartCount">0</span>
+          </button>
+          <button class="hamburger" id="hamburger">☰</button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- ══════════════════════ HERO ══════════════════════ -->
+    <section class="hero" id="inicio">
+      <div class="hero-bg-shapes">
+        <div class="shape s1"></div>
+        <div class="shape s2"></div>
+        <div class="shape s3"></div>
+      </div>
+      <div class="hero-content">
+          <span class="hero-tag">Colección 2026 · Nueva Temporada</span>
+          <h1>Moda para <br><span class="highlight">cada estación</span></h1>
+          <p>Encuentra la prenda perfecta según la temporada, tu estilo y género. Ropa con diseño, calidad y precio
+            justo.</p>
+          <div class="hero-actions">
+            <a href="#temporadas" class="btn-primary">Explorar Temporadas</a>
+            <a href="#ofertas" class="btn-ghost">Ver Ofertas 🔥</a>
+          </div>
+        </div>
+          <div class="hero-cards">
+            <div class="season-mini verano"> <span>☀️</span>
+              <p>Verano</p>
+            </div>
+            <div class="season-mini otono"> <span>🍂</span>
+              <p>Otoño</p>
+            </div>
+            <div class="season-mini invierno"> <span>❄️</span>
+              <p>Invierno</p>
+            </div>
+            <div class="season-mini primavera"><span>🌸</span>
+              <p>Primavera</p>
+            </div>
+          </div>
+    </section>
+
+    <!-- ══════════════════════ SELECTOR TEMPORADA ══════════════════════ -->
+    <section id="temporadas" class="season-section">
+      <div class="container">
+        <div class="sec-header">
+          <h2>Elige tu <span>Temporada</span></h2>
+          <p>Filtra toda nuestra colección por estación del año</p>
+        </div>
+
+              <div class="season-tabs">
+                <button class="season-tab active" data-season="todas" onclick="setSeason('todas')">
+                  🌍 Todas
+                </button>
+                <button class="season-tab verano-tab" data-season="verano" onclick="setSeason('verano')">
+                  ☀️ Verano
+                </button>
+                <button class="season-tab otono-tab" data-season="otoño" onclick="setSeason('otoño')">
+                  🍂 Otoño
+                </button>
+                <button class="season-tab invierno-tab" data-season="invierno" onclick="setSeason('invierno')">
+                  ❄️ Invierno
+                </button>
+                <button class="season-tab primavera-tab" data-season="primavera" onclick="setSeason('primavera')">
+                  🌸 Primavera
+                </button>
+              </div>
+
+                <!-- Banner descriptivo de temporada -->
+                <div class="season-banner" id="seasonBanner">
+                  <div class="banner-icon" id="bannerIcon">🌍</div>
+                  <div class="banner-text">
+                    <h3 id="bannerTitle">Toda la Colección</h3>
+                    <p id="bannerDesc">Explora todos nuestros productos sin filtro de temporada.</p>
+                  </div>
+                  <div class="banner-prendas" id="bannerPrendas"></div>
+                </div>
+              </div>
+        </section>
+
+          <!-- ══════════════════════ CATÁLOGO ══════════════════════ -->
+          <section id="catalogo" class="catalog-section">
+            <div class="container">
+              <div class="sec-header">
+                <h2>Nuestro <span>Catálogo</span></h2>
+                <p>Filtra por tipo de prenda, género y temporada</p>
+              </div>
+
+              <!-- Filtros secundarios -->
+              <div class="filters-panel">
+
+          <!-- Género -->
+          <div class="filter-group">
+            <label>👤 Género</label>
+            <div class="pill-group" id="genderFilter">
+              <button class="pill active" data-gender="todos" onclick="setGender('todos')">Todos</button>
+              <button class="pill" data-gender="varon" onclick="setGender('varon')">♂ Varón</button>
+              <button class="pill" data-gender="mujer" onclick="setGender('mujer')">♀ Mujer</button>
+            </div>
+          </div>
+
+                  <!-- Tipo de prenda -->
+                  <div class="filter-group">
+                    <label>👕 Prenda</label>
+                    <div class="pill-group" id="typeFilter">
+                      <button class="pill active" data-type="todas" onclick="setType('todas')">Todas</button>
+                      <button class="pill" data-type="polo" onclick="setType('polo')">Polos</button>
+                      <button class="pill" data-type="pantalon" onclick="setType('pantalon')">Pantalones</button>
+                      <button class="pill" data-type="casaca" onclick="setType('casaca')">Casacas</button>
+                      <button class="pill" data-type="gorro" onclick="setType('gorro')">Gorros</button>
+                      <button class="pill" data-type="guante" onclick="setType('guante')">Guantes</button>
+                    </div>
+                  </div>
+
+                    <!-- Solo ofertas -->
+                    <div class="filter-group">
+                      <label>🏷️ Filtrar</label>
+                      <div class="pill-group">
+                        <button class="pill" id="ofertaToggle" onclick="toggleOfertas()">Ver solo ofertas</button>
+                      </div>
+                    </div>
+
+                    <button class="btn-reset" onclick="resetFilters()">↺ Limpiar filtros</button>
+                  </div>
+
+                  <!-- Resumen activo -->
+                  <div class="filter-summary" id="filterSummary"></div>
+
+                  <!-- Conteo de resultados -->
+                  <p class="result-count" id="resultCount"></p>
+
+                  <!-- Grid de productos -->
+                  <div class="products-grid" id="productsGrid"></div>
+                </div>
+          </section>
+
+              <!-- ══════════════════════ SECCIÓN OFERTAS ══════════════════════ -->
+              <section id="ofertas" class="ofertas-section">
+                <div class="container">
+                  <div class="sec-header light">
+                    <h2>🔥 Ofertas <span>Especiales</span></h2>
+                    <p>Descuentos exclusivos por tiempo limitado — ¡No te los pierdas!</p>
+                  </div>
+                  <div class="ofertas-grid" id="ofertasGrid"></div>
+                </div>
+              </section>
+
+                      <!-- ══════════════════════ CONTACTO ══════════════════════ -->
+                      <section id="contacto" class="contact-section">
+                        <div class="container">
+                          <div class="sec-header">
+                            <h2>Contáctanos</h2>
+                            <p>Estamos listos para ayudarte</p>
+                          </div>
+                          <div class="contact-wrap">
+                            <div class="contact-info">
+                              <div class="ci-item"><span>📍</span>
+                                <div>
+                                  <h4>Dirección</h4>
+                                  <p>Av. La Moda 123, Lima, Perú</p>
+                                </div>
+                              </div>
+                              <div class="ci-item"><span>📞</span>
+                                <div>
+                                  <h4>Teléfono</h4>
+                                  <p>+51 987 654 321</p>
+                                </div>
+                              </div>
+                              <div class="ci-item"><span>📧</span>
+                                <div>
+                                  <h4>Email</h4>
+                                  <p>hola@dmoda.pe</p>
+                                </div>
+                              </div>
+                              <div class="ci-item"><span>🕐</span>
+                                <div>
+                                  <h4>Horario</h4>
+                                  <p>Lun – Sáb: 9 am – 8 pm</p>
+                                </div>
+                              </div>
+                            </div>
+                                <form class="contact-form" onsubmit="sendMsg(event)">
+                                  <div class="form-row">
+                                    <input type="text" placeholder="Tu nombre" required />
+                                    <input type="email" placeholder="Tu correo" required />
+                                  </div>
+                              <input type="text" placeholder="Asunto" required />
+                              <textarea rows="5" placeholder="Mensaje…" required></textarea>
+                              <button type="submit" class="btn-primary">Enviar Mensaje 📨</button>
+                              <p class="form-ok" id="formOk"></p>
+                              </form>
+                            </div>
+                          </div>
+                      </section>
+
+                      <!-- ══════════════════════ FOOTER ══════════════════════ -->
+                      <footer class="footer">
+                          <div class="footer-inner">
+                            <div class="footer-brand">
+                              <div class="logo">D'<span>Moda</span></div>
+                              <p>Moda con estilo, calidad y pasión.<br>Tu mejor versión comienza aquí.</p>
+                            </div>
+                              <div class="footer-col">
+                                <h4>Temporadas</h4>
+                                <ul>
+                                  <li><a href="#" onclick="setSeason('verano');return false">☀️ Verano</a></li>
+                                  <li><a href="#" onclick="setSeason('otoño');return false">🍂 Otoño</a></li>
+                                  <li><a href="#" onclick="setSeason('invierno');return false">❄️ Invierno</a></li>
+                                  <li><a href="#" onclick="setSeason('primavera');return false">🌸 Primavera</a></li>
+                                </ul>
+                              </div>
+                                <div class="footer-col">
+                                  <h4>Prendas</h4>
+                                  <ul>
+                                    <li><a href="#" onclick="setType('polo');return false">👕 Polos</a></li>
+                                    <li><a href="#" onclick="setType('pantalon');return false">👖 Pantalones</a></li>
+                                    <li><a href="#" onclick="setType('casaca');return false">🧥 Casacas</a></li>
+                                    <li><a href="#" onclick="setType('gorro');return false">🧢 Gorros</a></li>
+                                    <li><a href="#" onclick="setType('guante');return false">🧤 Guantes</a></li>
+                                  </ul>
+                                </div>
+                                    <div class="footer-col">
+                                      <h4>Pagos</h4>
+                                      <div class="pay-list">
+                                        <span>💳 Visa</span><span>💳 Mastercard</span>
+                                        <span>📱 Yape</span><span>📱 Plin</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="footer-bottom">
+                                    <p>© 2026 D'Moda — Todos los derechos reservados</p>
+                                  </div>
+                      </footer>
+
+                          <!-- ══════════════════════ CARRITO PANEL ══════════════════════ -->
+                          <div class="overlay" id="overlay" onclick="closeCart()"></div>
+                          <aside class="cart-panel" id="cartPanel">
+                            <div class="cp-header">
+                              <h3>🛍️ Mi Carrito</h3>
+                              <button onclick="closeCart()" class="cp-close">✕</button>
+                            </div>
+                              <div class="cp-items" id="cpItems">
+                                <p class="cp-empty">Tu carrito está vacío</p>
+                              </div>
+                                <div class="cp-footer">
+                                  <div class="cp-total"><span>Total</span><span id="cpTotal">S/ 0.00</span></div>
+                                  <button class="btn-primary full" onclick="checkout()">Finalizar Compra ✔</button>
+                                </div>
+                          </aside>
+
+                          <!-- ══════════════════════ TOAST ══════════════════════ -->
+                          <div class="toast" id="toast"></div>
+
+                          <script src="script.js"></script>
+</body>
+
+</html>
