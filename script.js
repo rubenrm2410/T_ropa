@@ -1,335 +1,283 @@
-// =====================================================
-//   D'MODA — script.js  |  Tienda por Temporada
-// =====================================================
+// ═══════════════════════════════════════════════
+//   D'LICIA — script.js | Restaurante Peruano
+// ═══════════════════════════════════════════════
 
 /* ════════════════════════════════════════════
-   BASE DE DATOS DE PRODUCTOS
-   ════════════════════════════════════════════
-   campos:
-     id, name, type, gender, season, price, priceOrig (null = sin descuento),
-     emoji, nuevo (bool)
-*/
-const PRODUCTS = [
-  /* ─── VERANO ─── */
-  // Polos
-  { id: 1, name: 'Polo Algodón Pima', type: 'polo', gender: 'varon', season: 'verano', price: 45, priceOrig: 60, emoji: '👕', nuevo: false },
-  { id: 2, name: 'Polo Estampado Floral', type: 'polo', gender: 'mujer', season: 'verano', price: 40, priceOrig: null, emoji: '👚', nuevo: true },
-  { id: 3, name: 'Polo Rayas Colores', type: 'polo', gender: 'mujer', season: 'verano', price: 38, priceOrig: 50, emoji: '👚', nuevo: false },
-  { id: 4, name: 'Polo Clásico Slim', type: 'polo', gender: 'varon', season: 'verano', price: 42, priceOrig: null, emoji: '👕', nuevo: false },
-  // Pantalones
-  { id: 5, name: 'Pantalón Cargo Ligero', type: 'pantalon', gender: 'varon', season: 'verano', price: 85, priceOrig: 110, emoji: '🩳', nuevo: false },
-  { id: 6, name: 'Pantalón Palazzo', type: 'pantalon', gender: 'mujer', season: 'verano', price: 70, priceOrig: null, emoji: '👖', nuevo: true },
-  { id: 7, name: 'Short Jean Holgado', type: 'pantalon', gender: 'varon', season: 'verano', price: 55, priceOrig: null, emoji: '🩳', nuevo: false },
-  // Accesorios – gorros
-  { id: 8, name: 'Gorra Visera Plana', type: 'gorro', gender: 'varon', season: 'verano', price: 35, priceOrig: null, emoji: '🧢', nuevo: false },
-  { id: 9, name: 'Sombrero Playa Paja', type: 'gorro', gender: 'mujer', season: 'verano', price: 50, priceOrig: 65, emoji: '👒', nuevo: false },
+   BASE DE DATOS — PLATOS
+   ════════════════════════════════════════════ */
+const MENU = [
+  /* ── ENTRADAS ── */
+  { id:1,  cat:'entradas', name:'Ceviche Clásico',         emoji:'🍋', price:28, orig:null, desc:'Pescado fresco marinado en limón, cebolla morada, ají limo y choclo. El rey de nuestra carta.',  badge:'casa',   especial:true  },
+  { id:2,  cat:'entradas', name:'Papa a la Huancaína',     emoji:'🥔', price:18, orig:22,   desc:'Papas sancochadas bañadas en cremosa salsa huancaína con ají amarillo. Clásico infaltable.',     badge:'oferta', especial:false },
+  { id:3,  cat:'entradas', name:'Anticuchos de Corazón',   emoji:'🍡', price:22, orig:null, desc:'Brochetas de corazón de res marinadas en ají panca, comino y vinagre. Cocinadas a la parrilla.', badge:'nuevo',  especial:false },
+  { id:4,  cat:'entradas', name:'Causa Limeña',            emoji:'🟡', price:20, orig:null, desc:'Pastel frío de papa amarilla con relleno de pollo, palta y mayonesa. Elegante y sabrosa.',        badge:null,     especial:false },
+  { id:5,  cat:'entradas', name:'Tequeños de Queso',       emoji:'🧀', price:16, orig:20,   desc:'Palitos de masa rellenos de queso derretido, perfectos para compartir.',                          badge:'oferta', especial:false },
+  { id:6,  cat:'entradas', name:'Ceviche Mixto',           emoji:'🦐', price:35, orig:null, desc:'Combinación de pescado, mariscos y pulpo en leche de tigre con ají amarillo y rocoto.',           badge:'casa',   especial:true  },
 
-  /* ─── OTOÑO ─── */
-  // Casacas
-  { id: 10, name: 'Casaca Jean Oversized', type: 'casaca', gender: 'mujer', season: 'otoño', price: 140, priceOrig: 180, emoji: '🧥', nuevo: false },
-  { id: 11, name: 'Casaca Bomber', type: 'casaca', gender: 'varon', season: 'otoño', price: 155, priceOrig: null, emoji: '🧥', nuevo: true },
-  { id: 12, name: 'Casaca Cuero Sintético', type: 'casaca', gender: 'mujer', season: 'otoño', price: 170, priceOrig: 220, emoji: '🥼', nuevo: false },
-  // Pantalones
-  { id: 13, name: 'Pantalón Corduroy', type: 'pantalon', gender: 'varon', season: 'otoño', price: 90, priceOrig: null, emoji: '👖', nuevo: false },
-  { id: 14, name: 'Pantalón Wide Leg', type: 'pantalon', gender: 'mujer', season: 'otoño', price: 95, priceOrig: 120, emoji: '👖', nuevo: true },
-  // Polos manga larga
-  { id: 15, name: 'Polo Manga Larga Waffle', type: 'polo', gender: 'varon', season: 'otoño', price: 55, priceOrig: null, emoji: '👕', nuevo: false },
-  { id: 16, name: 'Polo Manga Larga Modal', type: 'polo', gender: 'mujer', season: 'otoño', price: 52, priceOrig: 68, emoji: '👚', nuevo: false },
-  // Gorros
-  { id: 17, name: 'Gorra Baseball Otoño', type: 'gorro', gender: 'varon', season: 'otoño', price: 38, priceOrig: null, emoji: '🧢', nuevo: false },
-  { id: 18, name: 'Gorro Lana Suave', type: 'gorro', gender: 'mujer', season: 'otoño', price: 42, priceOrig: 55, emoji: '🎩', nuevo: false },
+  /* ── SOPAS ── */
+  { id:7,  cat:'sopas', name:'Aguadito de Pollo',          emoji:'🍗', price:22, orig:null, desc:'Reconfortante caldo verde con pollo, arroz, culantro y chicha de jora. Ideal para el frío.',      badge:null,     especial:false },
+  { id:8,  cat:'sopas', name:'Chupe de Camarones',         emoji:'🦐', price:38, orig:null, desc:'Exquisita sopa arequipeña con camarones frescos, papa, choclo, queso y huevo.',                   badge:'casa',   especial:true  },
+  { id:9,  cat:'sopas', name:'Sopa a la Minuta',           emoji:'🥣', price:18, orig:22,   desc:'Fideos finos en caldo de res con trozos de carne y un toque de orégano.',                         badge:'oferta', especial:false },
+  { id:10, cat:'sopas', name:'Parihuela',                  emoji:'🍲', price:40, orig:null, desc:'Poderosa sopa de mariscos con almejas, mariscos frescos y una base de ají panca.',                badge:'nuevo',  especial:false },
 
-  /* ─── INVIERNO ─── */
-  // Casacas
-  { id: 19, name: 'Casaca Puffer Térmica', type: 'casaca', gender: 'varon', season: 'invierno', price: 220, priceOrig: 280, emoji: '🧥', nuevo: false },
-  { id: 20, name: 'Casaca Acolchada Premium', type: 'casaca', gender: 'mujer', season: 'invierno', price: 245, priceOrig: null, emoji: '🧥', nuevo: true },
-  { id: 21, name: 'Casaca Polar Grande', type: 'casaca', gender: 'varon', season: 'invierno', price: 160, priceOrig: 200, emoji: '🥼', nuevo: false },
-  // Guantes
-  { id: 22, name: 'Guantes Térmicos Lana', type: 'guante', gender: 'varon', season: 'invierno', price: 35, priceOrig: null, emoji: '🧤', nuevo: false },
-  { id: 23, name: 'Guantes Touch Screen', type: 'guante', gender: 'mujer', season: 'invierno', price: 40, priceOrig: 55, emoji: '🧤', nuevo: true },
-  { id: 24, name: 'Guantes Cuero Forrado', type: 'guante', gender: 'varon', season: 'invierno', price: 65, priceOrig: 85, emoji: '🧤', nuevo: false },
-  { id: 25, name: 'Guantes Tejido Elegante', type: 'guante', gender: 'mujer', season: 'invierno', price: 45, priceOrig: null, emoji: '🧤', nuevo: false },
-  // Gorros
-  { id: 26, name: 'Gorro Beanie Polar', type: 'gorro', gender: 'varon', season: 'invierno', price: 38, priceOrig: 50, emoji: '🎿', nuevo: false },
-  { id: 27, name: 'Gorro Pompón Lana', type: 'gorro', gender: 'mujer', season: 'invierno', price: 42, priceOrig: null, emoji: '🧶', nuevo: true },
-  { id: 28, name: 'Gorro Ski Premium', type: 'gorro', gender: 'varon', season: 'invierno', price: 55, priceOrig: 70, emoji: '⛷️', nuevo: false },
-  // Pantalones
-  { id: 29, name: 'Pantalón Térmico Base', type: 'pantalon', gender: 'varon', season: 'invierno', price: 95, priceOrig: 120, emoji: '👖', nuevo: false },
-  { id: 30, name: 'Pantalón Recto Grueso', type: 'pantalon', gender: 'mujer', season: 'invierno', price: 100, priceOrig: null, emoji: '👖', nuevo: false },
+  /* ── FONDOS ── */
+  { id:11, cat:'fondos', name:'Lomo Saltado',              emoji:'🥩', price:32, orig:null, desc:'Tiernos trozos de lomo fino salteados con cebolla, tomate, soya y papas fritas. Infaltable.',     badge:'casa',   especial:true  },
+  { id:12, cat:'fondos', name:'Ají de Gallina',            emoji:'🐔', price:28, orig:33,   desc:'Pollo desmenuzado en cremosa salsa de ají amarillo con leche, pan y nueces. Puro sabor.',         badge:'oferta', especial:false },
+  { id:13, cat:'fondos', name:'Pollo a la Brasa',          emoji:'🍗', price:38, orig:null, desc:'Pollo marinado en especias secretas y cocido a la brasa. Crujiente por fuera, jugoso por dentro.', badge:'casa',  especial:true  },
+  { id:14, cat:'fondos', name:'Seco de Res con Frijoles',  emoji:'🫘', price:30, orig:null, desc:'Tierno estofado de res al culantro con frijoles, arroz blanco y yuca sancochada.',                badge:null,     especial:false },
+  { id:15, cat:'fondos', name:'Carapulcra',                emoji:'🫙', price:26, orig:30,   desc:'Papa seca guisada con cerdo, maní y ají panca. Una de las comidas más antiguas del Perú.',        badge:'oferta', especial:false },
+  { id:16, cat:'fondos', name:'Olluquito con Charqui',     emoji:'🌱', price:24, orig:null, desc:'Olluco picado salteado con charqui (carne seca) en salsa de ají amarillo. Genuinamente andino.',  badge:'nuevo',  especial:false },
 
-  /* ─── PRIMAVERA ─── */
-  // Polos
-  { id: 31, name: 'Polo Pastel Suave', type: 'polo', gender: 'mujer', season: 'primavera', price: 42, priceOrig: 55, emoji: '👚', nuevo: false },
-  { id: 32, name: 'Polo Lino Fresco', type: 'polo', gender: 'varon', season: 'primavera', price: 48, priceOrig: null, emoji: '👕', nuevo: true },
-  // Pantalones
-  { id: 33, name: 'Pantalón Chino Slim', type: 'pantalon', gender: 'varon', season: 'primavera', price: 88, priceOrig: 110, emoji: '👖', nuevo: false },
-  { id: 34, name: 'Pantalón Fluido Flores', type: 'pantalon', gender: 'mujer', season: 'primavera', price: 78, priceOrig: null, emoji: '👖', nuevo: true },
-  // Casacas ligeras
-  { id: 35, name: 'Casaca Rompevientos', type: 'casaca', gender: 'varon', season: 'primavera', price: 120, priceOrig: 150, emoji: '🧥', nuevo: false },
-  { id: 36, name: 'Casaca Kimono Floral', type: 'casaca', gender: 'mujer', season: 'primavera', price: 110, priceOrig: null, emoji: '🥼', nuevo: true },
-  // Gorros
-  { id: 37, name: 'Gorra Bordada Spring', type: 'gorro', gender: 'mujer', season: 'primavera', price: 36, priceOrig: 48, emoji: '🧢', nuevo: false },
-  { id: 38, name: 'Gorro Bucket Pastel', type: 'gorro', gender: 'varon', season: 'primavera', price: 38, priceOrig: null, emoji: '🪣', nuevo: false },
+  /* ── MARISCOS ── */
+  { id:17, cat:'mariscos', name:'Arroz con Mariscos',      emoji:'🦑', price:42, orig:null, desc:'Arroz cremoso estilo risotto con camarones, mariscos frescos y un toque de culantro.',             badge:'casa',   especial:true  },
+  { id:18, cat:'mariscos', name:'Sudado de Mero',          emoji:'🐟', price:45, orig:null, desc:'Filete de mero cocido a vapor en salsa de tomate y chicha con mariscos y choclo.',                badge:null,     especial:false },
+  { id:19, cat:'mariscos', name:'Jalea Mixta',             emoji:'🦞', price:48, orig:55,   desc:'Mariscos y pescado empanizados y fritos, acompañados de zarza criolla y yuca.',                   badge:'oferta', especial:false },
+  { id:20, cat:'mariscos', name:'Tiradito de Lenguado',    emoji:'🐠', price:35, orig:null, desc:'Finas láminas de lenguado fresco en salsa de ají amarillo con culantro y limón.',                 badge:'nuevo',  especial:false },
+
+  /* ── BEBIDAS ── */
+  { id:21, cat:'bebidas', name:'Pisco Sour',               emoji:'🍸', price:22, orig:null, desc:'El cóctel peruano por excelencia. Pisco quebranta, limón, jarabe, clara de huevo y amargo.',      badge:'casa',   especial:false },
+  { id:22, cat:'bebidas', name:'Chicha Morada',            emoji:'🫐', price:12, orig:15,   desc:'Refrescante bebida de maíz morado cocido con piña, canela, clavo y manzana. Sin alcohol.',        badge:'oferta', especial:false },
+  { id:23, cat:'bebidas', name:'Inca Kola',                emoji:'🟡', price:8,  orig:null, desc:'La bebida de sabor nacional, acompañante inseparable de la comida peruana.',                       badge:null,     especial:false },
+  { id:24, cat:'bebidas', name:'Maracuyá Frozen',          emoji:'🍹', price:16, orig:null, desc:'Jugo de maracuyá fresco mezclado con hielo raspado. Tropical y refrescante.',                      badge:'nuevo',  especial:false },
+  { id:25, cat:'bebidas', name:'Mate de Coca',             emoji:'🍵', price:10, orig:null, desc:'Infusión tradicional andina de hoja de coca, perfecta para la digestión.',                         badge:null,     especial:false },
+  { id:26, cat:'bebidas', name:'Chilcano de Pisco',        emoji:'🥂', price:20, orig:24,   desc:'Pisco, ginger ale, limón y amargo de angostura. Ligero y muy refrescante.',                       badge:'oferta', especial:false },
+
+  /* ── POSTRES ── */
+  { id:27, cat:'postres', name:'Suspiro Limeño',           emoji:'🍮', price:18, orig:null, desc:'Manjar blanco con merengue de oporto y canela. El postre más romántico de Lima.',                  badge:'casa',   especial:true  },
+  { id:28, cat:'postres', name:'Arroz con Leche',          emoji:'🍚', price:14, orig:18,   desc:'Cremoso arroz cocido en leche evaporada con canela, clavo y vainilla. Tierno y reconfortante.',   badge:'oferta', especial:false },
+  { id:29, cat:'postres', name:'Mazamorra Morada',         emoji:'🫐', price:14, orig:null, desc:'Postre de maíz morado con frutas, especias y chuño disuelto. Dulce y aromático.',                 badge:null,     especial:false },
+  { id:30, cat:'postres', name:'Picarones',                emoji:'🍩', price:16, orig:null, desc:'Donuts fritos de zapallo y camote bañados en miel de chancaca. Crujientes y adictivos.',           badge:'nuevo',  especial:false },
 ];
 
 /* ════════════════════════════════════════════
-   INFO POR TEMPORADA
+   ESPECIALES DE LA CASA
    ════════════════════════════════════════════ */
-const SEASON_INFO = {
-  todas: { icon: '🌍', title: 'Toda la Colección', desc: 'Explora todos nuestros productos sin filtro de temporada.', color: 'var(--dark)', prendas: ['Polos', 'Pantalones', 'Casacas', 'Gorros', 'Guantes'] },
-  verano: { icon: '☀️', title: 'Colección Verano', desc: 'Prendas ligeras, frescas y llenas de color para los días de calor.', color: 'var(--ver)', prendas: ['Polos', 'Pantalones', 'Gorros de sol'] },
-  otoño: { icon: '🍂', title: 'Colección Otoño', desc: 'Capas, tonos tierra y texturas acogedoras para la temporada de lluvia.', color: 'var(--oto)', prendas: ['Casacas', 'Pantalones', 'Polos manga larga', 'Gorros'] },
-  invierno: { icon: '❄️', title: 'Colección Invierno', desc: 'Abrigos térmicos, guantes y gorros para enfrentar el frío con estilo.', color: 'var(--inv)', prendas: ['Casacas térmicas', 'Guantes', 'Gorros', 'Pantalones gruesos'] },
-  primavera: { icon: '🌸', title: 'Colección Primavera', desc: 'Colores vivos, telas ligeras y estampados florales para renacer.', color: 'var(--pri)', prendas: ['Polos', 'Pantalones', 'Casacas ligeras', 'Gorros'] },
-};
+const ESPECIALES = [
+  { name:'Ceviche Especial D\'Licia',  emoji:'🍋', price:'S/ 45', desc:'Nuestra versión premium con 3 tipos de pescado, camarones, leche de tigre al rocoto y choclo confitado.' },
+  { name:'Pollo a la Brasa Real',      emoji:'🍗', price:'S/ 65', desc:'Pollo entero marinado 24 horas en nuestras especias secretas. Incluye papas, ensalada y 2 cremas.' },
+  { name:'Tabla Mar y Tierra',         emoji:'🦞', price:'S/ 85', desc:'Combinación perfecta: lomo saltado, ceviche mixto, mariscos a la parrilla y pisco sour de regalo.' },
+  { name:'Chupe de Camarones Grande',  emoji:'🦐', price:'S/ 55', desc:'Porción generosa con más de 10 camarones frescos del día. La joya de nuestra sección de sopas.' },
+];
 
-const TYPE_EMOJI = { polo: '👕', pantalon: '👖', casaca: '🧥', gorro: '🧢', guante: '🧤' };
-const TYPE_LABEL = { polo: 'Polo', pantalon: 'Pantalón', casaca: 'Casaca', gorro: 'Gorro', guante: 'Guante' };
+/* ════════════════════════════════════════════
+   TESTIMONIOS
+   ════════════════════════════════════════════ */
+const TESTIMONIOS = [
+  { emoji:'👩', name:'Carla Mendoza',   role:'Miraflores, Lima',   stars:5, text:'El mejor ceviche que he probado en toda Lima. Vine de visita y regresé 3 veces más. ¡Los anticuchos son increíbles!' },
+  { emoji:'👨', name:'Rodrigo Vargas',  role:'Santiago, Chile',    stars:5, text:'Como turista, D\'Licia fue la mejor recomendación que recibí. El lomo saltado y el pisco sour superaron todas mis expectativas.' },
+  { emoji:'👩', name:'Paola Torres',    role:'Lima, Perú',         stars:5, text:'Celebré mi cumpleaños aquí y fue una experiencia maravillosa. El servicio es excepcional y el suspiro limeño es un pecado.' },
+  { emoji:'👨', name:'Marco Espinoza',  role:'Bogotá, Colombia',   stars:5, text:'Vine por trabajo y tuve suerte de encontrar este restaurante. El chupe de camarones y el arroz con mariscos son para morirse de lo buenos.' },
+  { emoji:'👩', name:'Lucía Ramírez',   role:'Buenos Aires, AR',   stars:5, text:'La comida peruana es mi favorita y D\'Licia tiene el nivel de un restaurante de Lima auténtico. Volveré siempre que pueda.' },
+];
 
 /* ════════════════════════════════════════════
    ESTADO GLOBAL
    ════════════════════════════════════════════ */
-let state = { season: 'todas', gender: 'todos', type: 'todas', soloOfertas: false };
-let cart = [];
+let activeTab      = 'todo';
+let soloOfertas    = false;
+let testimonioIdx  = 0;
 
 /* ════════════════════════════════════════════
-   SETTERS DE FILTROS
+   TABS DE MENÚ
    ════════════════════════════════════════════ */
-function setSeason(s) {
-  state.season = s;
-  // tabs
-  document.querySelectorAll('.season-tab').forEach(b => {
-    b.classList.toggle('active', b.dataset.season === s);
+function setTab(cat) {
+  activeTab = cat;
+  document.querySelectorAll('.menu-tab').forEach(b => {
+    b.classList.toggle('active', b.dataset.cat === cat);
   });
-  // banner
-  const info = SEASON_INFO[s];
-  document.getElementById('bannerIcon').textContent = info.icon;
-  document.getElementById('bannerTitle').textContent = info.title;
-  document.getElementById('bannerDesc').textContent = info.desc;
-  document.getElementById('bannerPrendas').innerHTML =
-    info.prendas.map(p => `<span class="prenda-chip">${p}</span>`).join('');
-  document.getElementById('seasonBanner').style.borderLeftColor = info.color;
-
-  applyFilters();
-  document.getElementById('catalogo').scrollIntoView({ behavior: 'smooth' });
+  renderMenu();
 }
 
-function setGender(g) {
-  state.gender = g;
-  document.querySelectorAll('#genderFilter .pill').forEach(b => {
-    b.classList.toggle('active', b.dataset.gender === g);
-  });
-  applyFilters();
-}
-
-function setType(t) {
-  state.type = t;
-  document.querySelectorAll('#typeFilter .pill').forEach(b => {
-    b.classList.toggle('active', b.dataset.type === t);
-  });
-  applyFilters();
-}
+document.getElementById('menuTabs').addEventListener('click', e => {
+  if (e.target.classList.contains('menu-tab')) {
+    setTab(e.target.dataset.cat);
+  }
+});
 
 function toggleOfertas() {
-  state.soloOfertas = !state.soloOfertas;
-  document.getElementById('ofertaToggle').classList.toggle('active', state.soloOfertas);
-  applyFilters();
-}
-
-function resetFilters() {
-  state = { season: 'todas', gender: 'todos', type: 'todas', soloOfertas: false };
-  document.querySelectorAll('.season-tab').forEach(b => b.classList.toggle('active', b.dataset.season === 'todas'));
-  document.querySelectorAll('#genderFilter .pill').forEach(b => b.classList.toggle('active', b.dataset.gender === 'todos'));
-  document.querySelectorAll('#typeFilter .pill').forEach(b => b.classList.toggle('active', b.dataset.type === 'todas'));
-  document.getElementById('ofertaToggle').classList.remove('active');
-  // reset banner
-  const info = SEASON_INFO['todas'];
-  document.getElementById('bannerIcon').textContent = info.icon;
-  document.getElementById('bannerTitle').textContent = info.title;
-  document.getElementById('bannerDesc').textContent = info.desc;
-  document.getElementById('bannerPrendas').innerHTML =
-    info.prendas.map(p => `<span class="prenda-chip">${p}</span>`).join('');
-  document.getElementById('seasonBanner').style.borderLeftColor = info.color;
-  applyFilters();
+  soloOfertas = !soloOfertas;
+  document.getElementById('toggleOferta').classList.toggle('active', soloOfertas);
+  renderMenu();
 }
 
 /* ════════════════════════════════════════════
-   APLICAR FILTROS → RENDER
+   RENDER MENÚ
    ════════════════════════════════════════════ */
-function applyFilters() {
-  let list = [...PRODUCTS];
-  if (state.season !== 'todas') list = list.filter(p => p.season === state.season);
-  if (state.gender !== 'todos') list = list.filter(p => p.gender === state.gender);
-  if (state.type !== 'todas') list = list.filter(p => p.type === state.type);
-  if (state.soloOfertas) list = list.filter(p => p.priceOrig !== null);
+const CAT_BG = {
+  entradas:'cat-ent', sopas:'cat-sopas', fondos:'cat-fondos',
+  mariscos:'cat-maris', bebidas:'cat-beb', postres:'cat-post',
+};
+const CAT_LABEL = {
+  entradas:'Entrada', sopas:'Sopa', fondos:'Fondo',
+  mariscos:'Marisco', bebidas:'Bebida', postres:'Postre',
+};
+const BADGE_LABEL = { oferta:'🏷️ Oferta', nuevo:'✨ Nuevo', casa:'⭐ De la Casa' };
 
-  renderProducts(list);
-  renderFilterSummary();
-}
+function renderMenu() {
+  let list = [...MENU];
+  if (activeTab !== 'todo') list = list.filter(d => d.cat === activeTab);
+  if (soloOfertas)          list = list.filter(d => d.orig !== null);
 
-/* ════════════════════════════════════════════
-   RENDER CATÁLOGO
-   ════════════════════════════════════════════ */
-function renderProducts(list) {
-  const grid = document.getElementById('productsGrid');
-  document.getElementById('resultCount').textContent =
-    `${list.length} producto${list.length !== 1 ? 's' : ''} encontrado${list.length !== 1 ? 's' : ''}`;
+  document.getElementById('menuCount').textContent =
+    `${list.length} plato${list.length !== 1 ? 's' : ''} encontrado${list.length !== 1 ? 's' : ''}`;
 
+  const grid = document.getElementById('menuGrid');
   if (!list.length) {
-    grid.innerHTML = `
-      <div class="no-results">
-        <div class="nr-icon">🔍</div>
-        <h3>Sin resultados</h3>
-        <p>Prueba con otra combinación de filtros.</p>
-      </div>`;
+    grid.innerHTML = `<div class="no-results"><p>🔍 Sin resultados para esta selección.</p></div>`;
     return;
   }
 
-  grid.innerHTML = list.map(p => {
-    const hasDiscount = p.priceOrig !== null;
-    const pct = hasDiscount ? Math.round((1 - p.price / p.priceOrig) * 100) : 0;
-    const bgClass = `bg - ${ p.season }`;
-    const seasonLabel = p.season.charAt(0).toUpperCase() + p.season.slice(1);
+  grid.innerHTML = list.map(d => {
+    const pct    = d.orig ? Math.round((1 - d.price / d.orig) * 100) : 0;
+    const bgCls  = CAT_BG[d.cat] || '';
+    const badgeH = d.badge ? `<span class="dish-badge badge-${d.badge}">${BADGE_LABEL[d.badge]}</span>` : '';
+    const origH  = d.orig  ? `<span class="dish-price-orig">S/ ${d.orig}</span><span class="dish-pct">-${pct}%</span>` : '';
 
     return `
-  < div class= "pcard" >
-      <div class="pcard-gender-bar ${p.gender}"></div>
-      <div class="pcard-emoji ${bgClass}">
-        ${p.emoji}
-        ${hasDiscount ? `<span class="badge badge-oferta">-${pct}% OFF</span>` : ''}
-        ${p.nuevo    ? `<span class="badge badge-nuevo">Nuevo</span>` : ''}
-        <span class="badge-temporada">${seasonIcon(p.season)} ${seasonLabel}</span>
-        <span class="badge-genero ${p.gender}">${p.gender === 'varon' ? '♂ Varón' : '♀ Mujer'}</span>
+    <div class="dish-card">
+      <div class="dish-top ${bgCls}">
+        ${d.emoji}
+        ${badgeH}
       </div>
-      <div class="pcard-body">
-        <div class="pcard-type">${TYPE_EMOJI[p.type]} ${TYPE_LABEL[p.type]}</div>
-        <div class="pcard-name">${p.name}</div>
-        <div class="pcard-prices">
-          <span class="price-now">S/ ${p.price}</span>
-          ${hasDiscount ? `<span class="price-was">S/ ${p.priceOrig}</span>
-            <span class="discount-pct">-${pct}%</span>` : ''}
+      <div class="dish-body">
+        <div class="dish-cat">${CAT_LABEL[d.cat]}</div>
+        <div class="dish-name">${d.name}</div>
+        <div class="dish-desc">${d.desc}</div>
+        <div class="dish-footer">
+          <div>
+            <span class="dish-price">S/ ${d.price}</span>
+            ${origH}
+          </div>
+          <button class="btn-pedir" onclick="pedir('${d.name}')">Pedir 🛎️</button>
         </div>
-        <button class="btn-add" onclick="addToCart(${p.id})">🛒 Añadir al carrito</button>
       </div>
     </div>`;
-}).join('');
+  }).join('');
 }
 
-  function seasonIcon(s) {
-    return { verano: '☀️', otoño: '🍂', invierno: '❄️', primavera: '🌸' }[s] || '🌍';
-  }
-
-  /* ════════════════════════════════════════════
-     RESUMEN DE FILTROS
-     ════════════════════════════════════════════ */
-  function renderFilterSummary() {
-    const chips = [];
-    if (state.season !== 'todas') chips.push(`${seasonIcon(state.season)} ${SEASON_INFO[state.season].title}`);
-    if (state.gender !== 'todos') chips.push(`${state.gender === 'varon' ? '♂ Varón' : '♀ Mujer'}`);
-    if (state.type !== 'todas') chips.push(`${TYPE_EMOJI[state.type]} ${TYPE_LABEL[state.type]}`);
-    if (state.soloOfertas) chips.push('🏷️ Solo Ofertas');
-
-    document.getElementById('filterSummary').innerHTML =
-      chips.map(c => `<span class="f-chip">${c}</span>`).join('');
-  }
-
-  /* ════════════════════════════════════════════
-     SECCIÓN OFERTAS (mostrar top 6)
-     ════════════════════════════════════════════ */
-  function renderOfertas() {
-    const ofertas = PRODUCTS.filter(p => p.priceOrig !== null).slice(0, 6);
-    const grid = document.getElementById('ofertasGrid');
-
-    grid.innerHTML = ofertas.map(p => {
-      const pct = Math.round((1 - p.price / p.priceOrig) * 100);
-      const seasonLabel = p.season.charAt(0).toUpperCase() + p.season.slice(1);
-      return `
-    <div class="ocard">
-      <div class="ocard-pct">-${pct}% OFF</div>
-      <div class="ocard-emoji">${p.emoji}</div>
-      <div class="ocard-season">${seasonIcon(p.season)} ${seasonLabel} · ${TYPE_LABEL[p.type]}</div>
-      <div class="ocard-name">${p.name}</div>
-      <span class="ocard-gender ${p.gender}">${p.gender === 'varon' ? '♂ Varón' : '♀ Mujer'}</span>
-      <div class="ocard-prices">
-        <span class="o-was">S/ ${p.priceOrig}</span>
-        <span class="o-now">S/ ${p.price}</span>
-      </div>
-      <button class="btn-primary" onclick="addToCart(${p.id})">🛒 Añadir al carrito</button>
-    </div>`;
-    }).join('');
-  }
-
-  /* ════════════════════════════════════════════
-     CARRITO
-     ════════════════════════════════════════════ */
-  function addToCart(id) {
-    const p = PRODUCTS.find(x => x.id === id);
-    if (!p) return;
-    const ex = cart.find(i => i.id === id);
-    if (ex) ex.qty++;
-    else cart.push({ ...p, qty: 1 });
-    updateCartUI();
-    showToast(`✅ "${p.name}" añadido al carrito`);
-  }
-
-    function changeQty(id, delta) {
-      const item = cart.find(i => i.id === id);
-      if (!item) return;
-      item.qty += delta;
-      if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
-      updateCartUI();
-    }
-
-    function updateCartUI() {
-      const total = cart.reduce((a, i) => a + i.price * i.qty, 0);
-      const count = cart.reduce((a, i) => a + i.qty, 0);
-      document.getElementById('cartCount').textContent = count;
-      document.getElementById('cpTotal').textContent = `S/ ${total.toFixed(2)}`;
-
-      const container = document.getElementById('cpItems');
-      if (!cart.length) {
-        container.innerHTML = '<p class="cp-empty">Tu carrito está vacío 🛍️</p>';
-        return;
-      }
-      container.innerHTML = cart.map(item => `
-    <div class="cp-item">
-      <span class="cp-emoji">${item.emoji}</span>
-      <div class="cp-info">
-        <h4>${item.name}</h4>
-        <p>S/ ${(item.price * item.qty).toFixed(2)}</p>
-      </div>
-      <div class="cp-qty">
-        <button class="qty-btn" onclick="changeQty(${item.id},-1)">−</button>
-        <span  class="qty-n">${item.qty}</span>
-        <button class="qty-btn" onclick="changeQty(${item.id},+1)">+</button>
-      </div>
-    </div > `).join('');
+function pedir(name) {
+  showToast(`🛎️ "${name}" agregado a tu pedido`);
 }
-
-function openCart()  { document.getElementById('cartPanel').classList.add('open'); document.getElementById('overlay').classList.add('open'); }
-function closeCart() { document.getElementById('cartPanel').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); }
-
-function checkout() {
-  if (!cart.length) { showToast('⚠️ Tu carrito está vacío'); return; }
-  const total = cart.reduce((a,i) => a + i.price * i.qty, 0);
-  showToast(`🎉 Compra por S / ${ total.toFixed(2) } procesada. ¡Gracias!`);
-  cart = [];
-  updateCartUI();
-  closeCart();
-}
-
-document.getElementById('cartBtn').addEventListener('click', openCart);
 
 /* ════════════════════════════════════════════
-   FORMULARIO CONTACTO
+   ESPECIALES DE LA CASA
    ════════════════════════════════════════════ */
-function sendMsg(e) {
-  e.preventDefault();
-  const ok = document.getElementById('formOk');
-  ok.textContent = '✅ ¡Mensaje enviado! Te responderemos pronto.';
-  e.target.reset();
-  setTimeout(() => { ok.textContent = ''; }, 5000);
+function renderEspeciales() {
+  document.getElementById('especialesGrid').innerHTML =
+    ESPECIALES.map((e, i) => `
+      <div class="esp-card">
+        <div class="esp-num">${String(i+1).padStart(2,'0')}</div>
+        <span class="esp-emoji">${e.emoji}</span>
+        <div class="esp-name">${e.name}</div>
+        <div class="esp-desc">${e.desc}</div>
+        <div class="esp-price">${e.price}</div>
+      </div>`).join('');
 }
+
+/* ════════════════════════════════════════════
+   TESTIMONIOS SLIDER
+   ════════════════════════════════════════════ */
+function renderTestimonios() {
+  const slider = document.getElementById('testimoniosSlider');
+  const dots   = document.getElementById('sliderDots');
+
+  slider.innerHTML = TESTIMONIOS.map((t, i) => `
+    <div class="testimonio-item ${i === 0 ? 'active' : ''}">
+      <div class="test-emoji">${t.emoji}</div>
+      <div class="test-stars">${'⭐'.repeat(t.stars)}</div>
+      <div class="test-text">${t.text}</div>
+      <div class="test-author">
+        <span class="test-name">${t.name}</span>
+        <span class="test-role">${t.role}</span>
+      </div>
+    </div>`).join('');
+
+  dots.innerHTML = TESTIMONIOS.map((_, i) =>
+    `<button class="dot ${i === 0 ? 'active' : ''}" onclick="goTestimonio(${i})"></button>`
+  ).join('');
+}
+
+function goTestimonio(idx) {
+  document.querySelectorAll('.testimonio-item').forEach((el, i) => el.classList.toggle('active', i === idx));
+  document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+  testimonioIdx = idx;
+}
+function nextTestimonio() { goTestimonio((testimonioIdx + 1) % TESTIMONIOS.length); }
+function prevTestimonio() { goTestimonio((testimonioIdx - 1 + TESTIMONIOS.length) % TESTIMONIOS.length); }
+
+/* Auto-slide cada 6 segundos */
+setInterval(nextTestimonio, 6000);
+
+/* ════════════════════════════════════════════
+   CONTADORES ANIMADOS
+   ════════════════════════════════════════════ */
+function animateCounters() {
+  document.querySelectorAll('.stat-num').forEach(el => {
+    const target = +el.dataset.target;
+    const dur    = 1800;
+    const step   = target / (dur / 16);
+    let cur = 0;
+    const t = setInterval(() => {
+      cur += step;
+      if (cur >= target) { el.textContent = target.toLocaleString(); clearInterval(t); }
+      else               { el.textContent = Math.floor(cur).toLocaleString(); }
+    }, 16);
+  });
+}
+
+const statsBar = document.querySelector('.stats-bar');
+let countersDone = false;
+new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting && !countersDone) { countersDone = true; animateCounters(); }
+}, { threshold: .4 }).observe(statsBar);
+
+/* ════════════════════════════════════════════
+   FORMULARIOS
+   ════════════════════════════════════════════ */
+function submitReserva(e) {
+  e.preventDefault();
+  const ok = document.getElementById('reservaOk');
+  ok.textContent = '✅ ¡Reserva confirmada! Te contactaremos en breve para verificar tu mesa.';
+  e.target.reset();
+  setTimeout(() => { ok.textContent = ''; }, 6000);
+}
+
+function sendContact(e) {
+  e.preventDefault();
+  const ok = document.getElementById('contactOk');
+  ok.textContent = '✅ ¡Mensaje enviado! Te responderemos en menos de 24 horas.';
+  e.target.reset();
+  setTimeout(() => { ok.textContent = ''; }, 6000);
+}
+
+/* Fecha mínima = hoy */
+(function setMinDate() {
+  const f = document.getElementById('fechaReserva');
+  if (f) f.min = new Date().toISOString().split('T')[0];
+})();
+
+/* ════════════════════════════════════════════
+   NAVBAR SCROLL + BACK TO TOP
+   ════════════════════════════════════════════ */
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  document.getElementById('navbar').style.boxShadow =
+    y > 20 ? '0 4px 30px rgba(0,0,0,.55)' : 'none';
+  const btn = document.getElementById('backTop');
+  btn.classList.toggle('visible', y > 400);
+});
+
+/* ════════════════════════════════════════════
+   HAMBURGER MENÚ
+   ════════════════════════════════════════════ */
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+
+/* Cerrar nav al hacer click en link */
+document.querySelectorAll('.nav-a').forEach(a => {
+  a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+});
 
 /* ════════════════════════════════════════════
    TOAST
@@ -342,24 +290,10 @@ function showToast(msg) {
 }
 
 /* ════════════════════════════════════════════
-   HAMBURGER MENÚ
-   ════════════════════════════════════════════ */
-document.getElementById('hamburger').addEventListener('click', () => {
-  document.getElementById('navLinks').classList.toggle('open');
-});
-
-/* ════════════════════════════════════════════
-   NAVBAR SCROLL
-   ════════════════════════════════════════════ */
-window.addEventListener('scroll', () => {
-  document.getElementById('topHeader').style.boxShadow =
-    window.scrollY > 10 ? '0 2px 24px rgba(0,0,0,.45)' : '0 2px 18px rgba(0,0,0,.35)';
-});
-
-/* ════════════════════════════════════════════
    INICIALIZAR
    ════════════════════════════════════════════ */
 (function init() {
-  applyFilters();
-  renderOfertas();
+  renderMenu();
+  renderEspeciales();
+  renderTestimonios();
 })();
